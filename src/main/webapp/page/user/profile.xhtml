@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:m="http://metawidget.org/faces">
+<f:metadata>
+</f:metadata>
+<ui:composition template="/page/page-template.xhtml">
+	<ui:param name="pageTitle" value="User profile" />
+	<ui:define name="header">User profile</ui:define>
+	<ui:define name="subheader">Edit user profile</ui:define>
+	<ui:define name="footer"></ui:define>
+	<ui:define name="main">
+		<h:form id="f_profile">
+			<h:messages for="f_profile" />
+			<br />
+			<m:metawidget value="#{currentUserBean.user}">
+				<m:stub value="#{currentUserBean.user.email}">
+					<m:metawidget value="#{currentUserBean.user.email}" readOnly="true" />
+				</m:stub>
+				<m:stub value="#{currentUserBean.user.password}" />
+				<m:stub value="#{currentUserBean.user.confirmPassword}" />
+			</m:metawidget>
+			<br />
+			<h:commandButton id="b_save" value="Save"
+				action="#{currentUserBean.saveProfile()}" />
+			<h:button id="b_cancel" value="Cancel" outcome="/index" />
+		</h:form>
+		<h3>Change password</h3>
+		<h:form id="f_password">
+			<h:messages for="f_password" />
+			<br />
+			<m:metawidget value="#{currentUserBean.user}">
+				<m:stub value="#{currentUserBean.user.email}" />
+				<m:stub value="#{currentUserBean.user.fullName}" />
+			</m:metawidget>
+			<br />
+			<h:commandButton id="b_changePassword" value="Change password"
+				action="#{currentUserBean.changePassword()}" />
+			<h:button id="b_cancel" value="Cancel" outcome="/index" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:m="http://metawidget.org/faces">
+<f:metadata>
+</f:metadata>
+<ui:composition template="/page/page-template.xhtml">
+	<ui:param name="pageTitle" value="Register" />
+	<ui:define name="header">Register</ui:define>
+	<ui:define name="subheader">Enter your registration</ui:define>
+	<ui:define name="footer"></ui:define>
+	<ui:define name="main">
+		<h:form id="form">
+			<h:messages globalOnly="true" />
+			<br />
+			<m:metawidget value="#{userBean.user}" />
+			<br />
+			<h:commandButton id="b_register" value="Register"
+				action="#{userBean.register()}" />
+			<h:button id="b_cancel" value="Cancel" outcome="/index"
+				styleClass="right" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

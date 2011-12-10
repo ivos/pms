@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/page/page-template.xhtml">
+	<ui:param name="pageTitle" value="Welcome" />
+	<ui:define name="header">Welcome to Project Management System</ui:define>
+	<ui:define name="subheader"></ui:define>
+	<ui:define name="main">
+		<p>
+			Welcome back, please
+			<h:link id="l_login" value="log in" outcome="page/user/login" />
+			to enter...
+		</p>
+		<p>
+			...or if you are new to the system,
+			<h:link id="l_register" value="register" outcome="page/user/register" />
+			to start using it.
+		</p>
+	</ui:define>
+	<ui:define name="footer">
+		<p>
+			<a target="_blank" href="http://jboss.org/forge"><br /> Seam
+				Forge Project</a> | <a target="_blank"
+				href="https://issues.jboss.org/browse/SEAMFORGE">Report an issue</a>
+		</p>
+	</ui:define>
+</ui:composition>
+</html>
