@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -63,6 +65,10 @@ public class User implements java.io.Serializable {
 	@UiHidden
 	private Set<SystemRole> systemRoles = new HashSet<SystemRole>();
 
+	@Size(max = 200)
+	@UiHidden
+	private String fullText;
+
 	// business logic
 
 	/**
@@ -70,6 +76,18 @@ public class User implements java.io.Serializable {
 	 */
 	public boolean doPasswordsMatch() {
 		return null != password && password.equals(confirmPassword);
+	}
+
+	@PrePersist
+	@PreUpdate
+	protected void recreateFullText() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(email.toLowerCase());
+		if (null != fullName) {
+			sb.append(' ');
+			sb.append(fullName.toLowerCase());
+		}
+		fullText = sb.toString();
 	}
 
 	// getters, setters
@@ -130,6 +148,14 @@ public class User implements java.io.Serializable {
 		this.systemRoles = systemRoles;
 	}
 
+	public String getFullText() {
+		return fullText;
+	}
+
+	public void setFullText(String fullText) {
+		this.fullText = fullText;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -160,6 +186,7 @@ public class User implements java.io.Serializable {
 		return "User [id=" + id + ", version=" + version + ", email=" + email
 				+ ", fullName=" + fullName + ", password=" + password
 				+ ", confirmPassword=" + confirmPassword + ", systemRoles="
-				+ systemRoles + "]";
+				+ systemRoles + ", fullText=" + fullText + "]";
 	}
+
 }
