@@ -1,8 +1,5 @@
 package net.sf.pms.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,20 +11,18 @@ import net.sf.pms.view.support.ViewContext;
 import org.jboss.logging.Logger;
 import org.jboss.seam.security.Identity;
 import org.jboss.seam.transaction.Transactional;
-import org.metawidget.forge.navigation.MenuItem;
-import org.metawidget.forge.persistence.PaginationHelper;
 import org.metawidget.forge.persistence.PersistenceUtil;
 
-@Transactional
 @Named
 @RequestScoped
-public class UserBean extends PersistenceUtil implements MenuItem {
+public class UserBean extends PersistenceUtil /* implements MenuItem */{
 	private static final long serialVersionUID = 1L;
 
-	private List<User> list = null;
+	// private List<User> list = null;
 	private User user = new User();
 	private long id = 0;
-	private PaginationHelper<User> pagination;
+	// private PaginationHelper<User> pagination;
+	// private UserCriteria userCriteria = new UserCriteria();
 
 	@Inject
 	private Logger log;
@@ -38,21 +33,7 @@ public class UserBean extends PersistenceUtil implements MenuItem {
 	@Inject
 	Identity identity;
 
-	@Override
-	public Class<?> getItemType() {
-		return User.class;
-	}
-
-	@Override
-	public String getLiteralPath() {
-		return "/page/user/list";
-	}
-
-	@Override
-	public String getLabel() {
-		return null;
-	}
-
+	@Transactional
 	public String register() {
 		if (!user.doPasswordsMatch()) {
 			viewContext.addErrorMessage("form:userBeanUserConfirmPassword",
@@ -79,7 +60,7 @@ public class UserBean extends PersistenceUtil implements MenuItem {
 	private boolean isEmailAlreadyRegistered() {
 		return getEntityManager()
 				.createQuery(
-						"select user from User user where user.email=:email ",
+						"select user from User user where user.email=:email",
 						User.class).setParameter("email", user.getEmail())
 				.getResultList().size() > 0;
 	}
@@ -97,6 +78,7 @@ public class UserBean extends PersistenceUtil implements MenuItem {
 		return "/index";
 	}
 
+	@Transactional
 	public String generate() {
 		for (int i = 0; i < 121; i++) {
 			User user = new User();
@@ -110,20 +92,28 @@ public class UserBean extends PersistenceUtil implements MenuItem {
 		return "list?faces-redirect=true";
 	}
 
+	// public void refresh() {
+	// log.infov("refresh, {0}", userCriteria);
+	// pagination.firstPage();
+	// }
+
 	public void load() {
 		user = findById(User.class, id);
 	}
 
+	@Transactional
 	public String create() {
 		create(user);
 		return "view?faces-redirect=true&id=" + user.getId();
 	}
 
+	@Transactional
 	public String delete() {
 		delete(user);
 		return "list?faces-redirect=true";
 	}
 
+	@Transactional
 	public String save() {
 		save(user);
 		return "view?faces-redirect=true&id=" + user.getId();
@@ -148,36 +138,26 @@ public class UserBean extends PersistenceUtil implements MenuItem {
 		this.user = user;
 	}
 
-	public List<User> getList() {
-		if (list == null) {
-			list = getPagination().createPageDataModel();
-		}
-		return list;
-	}
+	// public PaginationHelper<User> getPagination() {
+	// if (pagination == null) {
+	// pagination = new PaginationHelper<User>(10) {
+	// @Override
+	// public int getItemsCount() {
+	// return count();
+	// }
+	//
+	// @Override
+	// public List<User> createPageDataModel() {
+	// return new ArrayList<User>(search(getPageFirstItem(),
+	// getPageSize()));
+	// }
+	// };
+	// }
+	// return pagination;
+	// }
 
-	public void setList(List<User> list) {
-		this.list = list;
-	}
-
-	public PaginationHelper<User> getPagination() {
-		if (pagination == null) {
-			pagination = new PaginationHelper<User>(10) {
-				@Override
-				public int getItemsCount() {
-					return count(User.class);
-				}
-
-				@Override
-				public List<User> createPageDataModel() {
-					return new ArrayList<User>(findAll(User.class,
-							getPageFirstItem(), getPageSize()));
-				}
-			};
-		}
-		return pagination;
-	}
-
-	public void setPagination(final PaginationHelper<User> helper) {
-		pagination = helper;
-	}
+	// public void setPagination(final PaginationHelper<User> helper) {
+	// log.infov("setPagination, {0}", helper);
+	// pagination = helper;
+	// }
 }

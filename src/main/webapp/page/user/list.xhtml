@@ -6,10 +6,6 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:m="http://metawidget.org/faces">
 <f:metadata>
-	<f:viewParam name="id" value="#{userBean.id}">
-		<!-- <f:validateLongRange minimum="1" />  -->
-	</f:viewParam>
-	<f:viewParam name="p" value="#{userBean.pagination.page}" />
 </f:metadata>
 <ui:composition template="/page/page-template.xhtml">
 	<ui:param name="pageTitle" value="List User" />
@@ -17,22 +13,27 @@
 	<ui:define name="subheader">Listing all system users</ui:define>
 	<ui:define name="footer"></ui:define>
 	<ui:define name="main">
-		<h:form id="form">
+		<h:form id="f_form">
 			<h:messages />
-			<h:link id="l_next_top" outcome="list" styleClass="right"
-				value="Next #{userBean.pagination.pageSize}"
-				rendered="#{userBean.pagination.hasNextPage}">
-				<f:param name="p" value="#{userBean.pagination.page + 1}" />
-			</h:link>
+			<m:metawidget value="#{userListBean.userCriteria}"></m:metawidget>
+			<h:inputHidden id="i_page" value="#{userListBean.page}" />
+			<h:commandButton id="b_search" value="Search"
+				action="#{userListBean.search}" />&nbsp;&nbsp;&nbsp;
+			<h:commandButton id="b_generate" value="Generate"
+				action="#{userBean.generate}" />
+
+			<h:commandLink id="l_next_page" value="Next #{userListBean.pageSize}"
+				action="#{userListBean.nextPage}"
+				rendered="#{userListBean.nextAvailable}" styleClass="right" />
 			<h:outputText styleClass="right"
 				style="margin-left: 10px; margin-right: 10px;"
-				value="#{userBean.pagination.pageFirstItem + 1}..#{userBean.pagination.pageLastItem + 1}/#{userBean.pagination.itemsCount}" />&nbsp;
-            <h:link id="l_previous_top" outcome="list"
-				styleClass="right" value="Previous #{userBean.pagination.pageSize}"
-				rendered="#{userBean.pagination.hasPreviousPage}">
-				<f:param name="p" value="#{userBean.pagination.page - 1}" />
-			</h:link>
-			<h:dataTable var="entity" value="#{userBean.list}"
+				value="#{userListBean.pageFirstItem + 1}..#{userListBean.pageLastItem + 1}/#{userListBean.itemsCount}" />
+			<h:commandLink id="l_previous_page"
+				value="Previous #{userListBean.pageSize}"
+				action="#{userListBean.previousPage}"
+				rendered="#{userListBean.previousAvailable}" styleClass="right" />
+
+			<h:dataTable var="entity" value="#{userListBean.list}"
 				styleClass="data-table" rowClasses="row-odd, row-even">
 				<h:column>
 					<f:facet name="header">
@@ -51,23 +52,6 @@
 				</h:column>
 			</h:dataTable>
 			<br />
-			<h:link id="l_next_bottom" outcome="list" styleClass="right"
-				value="Next #{userBean.pagination.pageSize}"
-				rendered="#{userBean.pagination.hasNextPage}">
-				<f:param name="p" value="#{userBean.pagination.page + 1}" />
-			</h:link>
-			<h:outputText styleClass="right"
-				style="margin-left: 10px; margin-right: 10px;"
-				value="#{userBean.pagination.pageFirstItem + 
-					1}..#{userBean.pagination.pageLastItem + 
-					1}/#{userBean.pagination.itemsCount}" />&nbsp;
-            <h:link id="l_previous_bottom" outcome="list"
-				styleClass="right" value="Previous #{userBean.pagination.pageSize}"
-				rendered="#{userBean.pagination.hasPreviousPage}">
-				<f:param name="p" value="#{userBean.pagination.page - 1}" />
-			</h:link>
-			<h:commandLink id="l_generate" action="#{userBean.generate}"
-				styleClass="right" value="Generate" />
 		</h:form>
 	</ui:define>
 </ui:composition>
