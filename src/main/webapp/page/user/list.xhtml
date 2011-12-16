@@ -6,6 +6,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:m="http://metawidget.org/faces">
 <f:metadata>
+	<f:viewParam name="p" value="#{userListBean.page}">
+		<f:validateLongRange minimum="0" />
+	</f:viewParam>
+	<f:viewParam name="q" value="#{userListBean.criteria.query}" />
 </f:metadata>
 <ui:composition template="/page/page-template.xhtml">
 	<ui:param name="pageTitle" value="List User" />
@@ -15,23 +19,27 @@
 	<ui:define name="main">
 		<h:form id="f_form">
 			<h:messages />
-			<m:metawidget value="#{userListBean.userCriteria}"></m:metawidget>
+			<m:metawidget value="#{userListBean.criteria}"></m:metawidget>
 			<h:inputHidden id="i_page" value="#{userListBean.page}" />
 			<h:commandButton id="b_search" value="Search"
 				action="#{userListBean.search}" />&nbsp;&nbsp;&nbsp;
 			<h:commandButton id="b_generate" value="Generate"
 				action="#{userBean.generate}" />
 
-			<h:commandLink id="l_next_page" value="Next #{userListBean.pageSize}"
-				action="#{userListBean.nextPage}"
-				rendered="#{userListBean.nextAvailable}" styleClass="right" />
+			<h:link id="l_next_page" value="Next #{userListBean.pageSize}"
+				outcome="list" disabled="#{!userListBean.nextAvailable}"
+				includeViewParams="true" styleClass="right">
+				<f:param name="p" value="#{userListBean.page + 1}" />
+			</h:link>
 			<h:outputText styleClass="right"
 				style="margin-left: 10px; margin-right: 10px;"
 				value="#{userListBean.pageFirstItem + 1}..#{userListBean.pageLastItem + 1}/#{userListBean.itemsCount}" />
-			<h:commandLink id="l_previous_page"
-				value="Previous #{userListBean.pageSize}"
-				action="#{userListBean.previousPage}"
-				rendered="#{userListBean.previousAvailable}" styleClass="right" />
+			<h:link id="l_previous_page"
+				value="Previous #{userListBean.pageSize}" outcome="list"
+				disabled="#{!userListBean.previousAvailable}"
+				includeViewParams="true" styleClass="right">
+				<f:param name="p" value="#{userListBean.page - 1}" />
+			</h:link>
 
 			<h:dataTable var="entity" value="#{userListBean.list}"
 				styleClass="data-table" rowClasses="row-odd, row-even">

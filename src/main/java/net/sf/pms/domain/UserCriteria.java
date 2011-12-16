@@ -7,30 +7,29 @@ import org.metawidget.inspector.annotation.UiHidden;
 public class UserCriteria implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String fullText;
+	private String query;
 
 	@UiHidden
-	public String getFullTextExpanded() {
-		if (null == fullText) {
+	public String getQueryExpanded() {
+		if (null == query) {
 			return "%";
 		}
-		return "%" + fullText.toLowerCase() + "%";
+		return "%" + query.toLowerCase() + "%";
 	}
 
-	public String getFullText() {
-		return fullText;
+	public String getQuery() {
+		return query;
 	}
 
-	public void setFullText(String fullText) {
-		this.fullText = fullText;
+	public void setQuery(String query) {
+		this.query = query;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((fullText == null) ? 0 : fullText.hashCode());
+		result = prime * result + ((query == null) ? 0 : query.hashCode());
 		return result;
 	}
 
@@ -43,17 +42,17 @@ public class UserCriteria implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		UserCriteria other = (UserCriteria) obj;
-		if (fullText == null) {
-			if (other.fullText != null)
+		if (query == null) {
+			if (other.query != null)
 				return false;
-		} else if (!fullText.equals(other.fullText))
+		} else if (!query.equals(other.query))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "UserSearch [fullText=" + fullText + "]";
+		return "UserSearch [query=" + query + "]";
 	}
 
 }
