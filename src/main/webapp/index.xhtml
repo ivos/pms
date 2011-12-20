@@ -9,9 +9,10 @@
 	<ui:define name="subheader"></ui:define>
 	<ui:define name="main">
 		<p>
-			Welcome back, please
-			<h:link id="l_login" value="log in" outcome="page/user/login" />
-			to enter...
+			#{label.index_welcome}
+			<h:link id="l_login" value="#{label.index_log_in}"
+				outcome="page/user/login" />
+			#{label.index_to_enter}
 		</p>
 		<p>
 			...or if you are new to the system,
