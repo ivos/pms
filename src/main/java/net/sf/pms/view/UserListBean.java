@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import net.sf.pms.domain.User;
 import net.sf.pms.domain.UserCriteria;
+import net.sf.pms.security.annotation.SystemAdmin;
 
 import org.jboss.logging.Logger;
 import org.metawidget.forge.navigation.MenuItem;
@@ -76,6 +77,7 @@ public class UserListBean extends PersistenceUtil implements MenuItem {
 		this.criteria = criteria;
 	}
 
+	@SystemAdmin
 	public List<User> getList() {
 		if (null == list && !facesContext.isPostback()) {
 			list = executeSearchQuery(getPageFirstItem(), getPageSize());
