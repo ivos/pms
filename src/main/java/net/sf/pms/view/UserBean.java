@@ -1,11 +1,16 @@
 package net.sf.pms.view;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import net.sf.pms.domain.SystemRole;
 import net.sf.pms.domain.User;
+import net.sf.pms.security.annotation.SystemAdmin;
 import net.sf.pms.view.support.ViewContext;
 
 import org.jboss.logging.Logger;
@@ -18,11 +23,8 @@ import org.metawidget.forge.persistence.PersistenceUtil;
 public class UserBean extends PersistenceUtil /* implements MenuItem */{
 	private static final long serialVersionUID = 1L;
 
-	// private List<User> list = null;
 	private User user = new User();
 	private long id = 0;
-	// private PaginationHelper<User> pagination;
-	// private UserCriteria userCriteria = new UserCriteria();
 
 	@Inject
 	private Logger log;
@@ -92,11 +94,6 @@ public class UserBean extends PersistenceUtil /* implements MenuItem */{
 		return "list?faces-redirect=true";
 	}
 
-	// public void refresh() {
-	// log.infov("refresh, {0}", userCriteria);
-	// pagination.firstPage();
-	// }
-
 	public void load() {
 		user = findById(User.class, id);
 	}
@@ -114,7 +111,9 @@ public class UserBean extends PersistenceUtil /* implements MenuItem */{
 	}
 
 	@Transactional
+	@SystemAdmin
 	public String save() {
+		user.setConfirmPassword(user.getPassword());
 		save(user);
 		return "view?faces-redirect=true&id=" + user.getId();
 	}
@@ -123,6 +122,7 @@ public class UserBean extends PersistenceUtil /* implements MenuItem */{
 		return id;
 	}
 
+	@SystemAdmin
 	public void setId(long id) {
 		this.id = id;
 		if (id > 0) {
@@ -138,26 +138,8 @@ public class UserBean extends PersistenceUtil /* implements MenuItem */{
 		this.user = user;
 	}
 
-	// public PaginationHelper<User> getPagination() {
-	// if (pagination == null) {
-	// pagination = new PaginationHelper<User>(10) {
-	// @Override
-	// public int getItemsCount() {
-	// return count();
-	// }
-	//
-	// @Override
-	// public List<User> createPageDataModel() {
-	// return new ArrayList<User>(search(getPageFirstItem(),
-	// getPageSize()));
-	// }
-	// };
-	// }
-	// return pagination;
-	// }
-
-	// public void setPagination(final PaginationHelper<User> helper) {
-	// log.infov("setPagination, {0}", helper);
-	// pagination = helper;
-	// }
+	public List<SelectItem> getSystemRoles() {
+		return Arrays.asList(new SelectItem(SystemRole.user, "User"),
+				new SelectItem(SystemRole.systemAdmin, "System administrator"));
+	}
 }

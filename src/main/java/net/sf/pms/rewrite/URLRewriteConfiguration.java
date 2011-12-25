@@ -61,6 +61,12 @@ public class URLRewriteConfiguration extends HttpConfigurationProvider {
 								.withInboundCorrection())
 
 				.addRule(
+						Join.path("/{domain}/{id}/edit").where("domain")
+								.matches(ENTITY_NAME).where("id")
+								.matches("\\d+").to("/page/{domain}/edit.jsf")
+								.withInboundCorrection())
+
+				.addRule(
 						Join.path("/{domain}/create").where("domain")
 								.matches(ENTITY_NAME)
 								.to("/page/{domain}/create.jsf")

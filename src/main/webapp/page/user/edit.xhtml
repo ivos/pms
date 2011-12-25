@@ -12,9 +12,9 @@
 	</f:viewParam>
 </f:metadata>
 <ui:composition template="/page/page-template.xhtml">
-	<ui:param name="pageTitle" value="View User" />
+	<ui:param name="pageTitle" value="Edit User" />
 	<ui:define name="header">User</ui:define>
-	<ui:define name="subheader">Viewing user</ui:define>
+	<ui:define name="subheader">Editing user</ui:define>
 	<ui:define name="footer"></ui:define>
 	<ui:define name="main">
 		<h:form id="form">
@@ -25,14 +25,14 @@
 				<m:stub value="#{userBean.user.confirmPassword}" />
 				<m:stub value="#{userBean.user.systemRoles}">
 					<h:selectManyListbox id="systemRoles"
-						value="#{userBean.user.systemRoles}" disabled="true">
+						value="#{userBean.user.systemRoles}">
 						<f:selectItems value="#{userBean.systemRoles}" />
 					</h:selectManyListbox>
 				</m:stub>
 			</m:metawidget>
 			<br />
-			<h:link value="View all" outcome="list" /> | 
-		    <h:link value="Edit" outcome="edit" includeViewParams="true" />
+			<h:commandButton value="Save" action="#{userBean.save()}" />
+			<h:button value="Cancel" outcome="view" includeViewParams="true" />
 		</h:form>
 	</ui:define>
 </ui:composition>
