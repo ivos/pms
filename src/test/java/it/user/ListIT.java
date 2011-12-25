@@ -6,6 +6,7 @@ import net.sf.lightair.annotation.BaseUrl;
 import net.sf.lightair.annotation.Setup;
 import net.sf.lightair.annotation.Verify;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -15,9 +16,17 @@ import org.junit.runner.RunWith;
 @BaseUrl("http://localhost:8080/pms-seam3-c")
 public class ListIT {
 
+	@Before
+	public void before() {
+		beginAt("login");
+		setTextField("form:userBeanUserEmail", "email4");
+		setTextField("form:userBeanUserPassword", "password4");
+		submit();
+	}
+
 	@Test
 	public void paging_NoCriteria() {
-		beginAt("user");
+		clickLinkWithExactText("User");
 		assertLinkPresentWithExactText("email1");
 		assertLinkPresentWithExactText("email2");
 		assertLinkPresentWithExactText("email10");
@@ -49,7 +58,7 @@ public class ListIT {
 
 	@Test
 	public void paging_WithCriteria() {
-		beginAt("user");
+		clickLinkWithExactText("User");
 		assertLinkPresentWithExactText("email1");
 		assertLinkPresentWithExactText("email2");
 		assertLinkPresentWithExactText("email9");

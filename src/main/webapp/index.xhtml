@@ -4,20 +4,21 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition template="/page/page-template.xhtml">
-	<ui:param name="pageTitle" value="Welcome" />
-	<ui:define name="header">Welcome to Project Management System</ui:define>
+	<ui:param name="pageTitle" value="#{label.index_title}" />
+	<ui:define name="header">#{label.index_header}</ui:define>
 	<ui:define name="subheader"></ui:define>
 	<ui:define name="main">
 		<p>
 			#{label.index_welcome}
-			<h:link id="l_login" value="#{label.index_log_in}"
+			<h:link id="l_login" value="#{label.index_logIn}"
 				outcome="page/user/login" />
-			#{label.index_to_enter}
+			#{label.index_toEnter}
 		</p>
 		<p>
-			...or if you are new to the system,
-			<h:link id="l_register" value="register" outcome="page/user/register" />
-			to start using it.
+			#{label.index_new}
+			<h:link id="l_register" value="#{label.index_register}"
+				outcome="page/user/register" />
+			#{label.index_start}
 		</p>
 	</ui:define>
 	<ui:define name="footer">

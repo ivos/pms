@@ -20,7 +20,7 @@
 					alt="Seam Forge... get hammered." width="195" height="131"
 					border="0" />
 			</h:link>
-			<h:panelGroup rendered="#{not empty navigation.listItems}">
+			<h:panelGroup id="_nav" rendered="#{not empty navigation.listItems}">
 				<ul>
 					<ui:repeat var="item" value="#{navigation.listItems}">
 						<li><h:link id="_l_menu_#{item.itemType.simpleName}"
@@ -33,17 +33,18 @@
 		<div class="right">
 			<ui:fragment rendered="#{identity.loggedIn}">
 				<h:form id="_f_login">
-					Logged in as:
+					#{label.template_loggedInAs}
 					<h:link id="_l_profile" value="#{identity.user.id}"
 						outcome="/page/user/profile" /> |
-					<h:commandLink id="_l_logout" value="Log out"
+					<h:commandLink id="_l_logout" value="#{label.template_logOut}"
 						action="#{userBean.logout}" />
 				</h:form>
 			</ui:fragment>
 			<ui:fragment rendered="#{!identity.loggedIn}">
-				<h:link id="_l_login" value="Log in..." outcome="/page/user/login" />
+				<h:link id="_l_login" value="#{label.template_logIn}"
+					outcome="/page/user/login" />
 				|
-				<h:link id="_l_register" value="Register..."
+				<h:link id="_l_register" value="#{label.template_register}"
 					outcome="/page/user/register" />
 			</ui:fragment>
 		</div>
