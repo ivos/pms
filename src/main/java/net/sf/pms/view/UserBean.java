@@ -15,6 +15,7 @@ import net.sf.pms.view.support.ViewContext;
 
 import org.jboss.logging.Logger;
 import org.jboss.seam.security.Identity;
+import org.jboss.seam.security.annotations.LoggedIn;
 import org.jboss.seam.transaction.Transactional;
 import org.metawidget.forge.persistence.PersistenceUtil;
 
@@ -122,7 +123,7 @@ public class UserBean extends PersistenceUtil /* implements MenuItem */{
 		return id;
 	}
 
-	@SystemAdmin
+	@LoggedIn
 	public void setId(long id) {
 		this.id = id;
 		if (id > 0) {

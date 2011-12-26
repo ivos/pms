@@ -8,7 +8,7 @@
 		version="1" />
 	<user id="4" email="email4" full_name="Full Name 4" password="password4" full_text="ft4"
 		version="1" />
-	<user_system_roles user="4" system_role="systemAdmin" />
+	<user_system_roles user="4" system_role="user" />
 	<user id="5" email="email5" full_name="Full Name 5" password="password5" full_text="ft5"
 		version="1" />
 	<user id="6" email="email6" full_name="Full Name 6" password="password6" full_text="ft6"
