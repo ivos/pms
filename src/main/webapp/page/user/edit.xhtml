@@ -31,8 +31,9 @@
 				</m:stub>
 			</m:metawidget>
 			<br />
-			<h:commandButton value="Save" action="#{userBean.save()}" />
-			<h:button value="Cancel" outcome="view" includeViewParams="true" />
+			<h:commandButton id="b_save" value="Save" action="#{userBean.save()}" />
+			<h:button id="b_cancel" value="Cancel" outcome="view"
+				includeViewParams="true" />
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<user id="1" email="email1" full_name="Full Name 1" password="password1" full_text="ft1"
+		version="1" />
+	<user_system_roles user="1" system_role="systemAdmin" />
+	<user id="2" email="email2" full_name="Full Name 2" password="password2" full_text="email2 full name 2" />
+	<user_system_roles user="2" system_role="user" />
+	<user_system_roles user="2" system_role="systemAdmin" />
+</dataset>
