@@ -45,7 +45,7 @@
 				styleClass="data-table" rowClasses="row-odd, row-even">
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="E-mail" />
+						<h:outputText value="#{property.email}" />
 					</f:facet>
 					<h:link id="l_view" outcome="view">
 						<f:param name="id" value="#{entity.id}" />
@@ -54,9 +54,21 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Name" />
+						<h:outputText value="#{property.fullName}" />
 					</f:facet>
 					<h:outputText value="#{entity.fullName}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{property.phone}" />
+					</f:facet>
+					<h:outputText value="#{entity.phone}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{property.skype}" />
+					</f:facet>
+					<h:outputText value="#{entity.skype}" />
 				</h:column>
 			</h:dataTable>
 			<br />

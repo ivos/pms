@@ -25,6 +25,8 @@ public class ProfileUpdateIT {
 		assertEquals("span",
 				getElementById("f_profile:currentUserBeanUserEmail").getName());
 		setTextField("f_profile:currentUserBeanUserFullName", "Full Name 2_a");
+		setTextField("f_profile:currentUserBeanUserPhone", "phone2_a");
+		setTextField("f_profile:currentUserBeanUserSkype", "skype2_a");
 		submit();
 
 		assertTextPresent("Logged in as: email2");
@@ -32,10 +34,14 @@ public class ProfileUpdateIT {
 				"Full Name 2_a");
 
 		setTextField("f_profile:currentUserBeanUserFullName", "Full Name 2_b");
+		setTextField("f_profile:currentUserBeanUserPhone", "phone2_b");
+		setTextField("f_profile:currentUserBeanUserSkype", "skype2_b");
 		submit();
 
 		assertTextFieldEquals("f_profile:currentUserBeanUserFullName",
 				"Full Name 2_b");
+		assertTextFieldEquals("f_profile:currentUserBeanUserPhone", "phone2_b");
+		assertTextFieldEquals("f_profile:currentUserBeanUserSkype", "skype2_b");
 	}
 
 }

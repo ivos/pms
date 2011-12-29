@@ -1,11 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-	<user id="$userId1" email="test1@company.com" full_name="Full Name 1" password="1111" />
+	<user id="$userId1" email="test1@company.com" full_name="Full Name 1" phone="phone1"
+		skype="skype1" password="1111" full_text="test1@company.com full name 1 phone1 skype1" />
 	<user_system_roles user="$userId1" system_role="systemAdmin" />
 
-	<user id="$userId2" email="test2@company.com" full_name="Full Name 2" password="2222" />
+	<user id="$userId2" email="test2@company.com" full_name="Full Name 2" phone="phone2"
+		skype="skype2" password="2222" full_text="test2@company.com full name 2 phone2 skype2" />
 	<user_system_roles user="$userId2" system_role="user" />
 
-	<user id="$userId3" email="test3@company.com" full_name="Full Name 3" password="3333" />
+	<user id="$userId3" email="test3@company.com" full_name="Full Name 3" phone="phone3"
+		skype="skype3" password="3333" full_text="test3@company.com full name 3 phone3 skype3" />
 	<user_system_roles user="$userId3" system_role="user" />
 </dataset>

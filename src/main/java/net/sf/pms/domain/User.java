@@ -45,10 +45,18 @@ public class User implements java.io.Serializable {
 	@UiComesAfter("email")
 	private String fullName;
 
+	@Size(max = 30)
+	@UiComesAfter("fullName")
+	private String phone;
+
+	@Size(max = 100)
+	@UiComesAfter("phone")
+	private String skype;
+
 	@NotNull
 	@Size(min = 4, max = 100)
 	@UiMasked
-	@UiComesAfter("fullName")
+	@UiComesAfter("skype")
 	private String password;
 
 	@Transient
@@ -87,6 +95,14 @@ public class User implements java.io.Serializable {
 			sb.append(' ');
 			sb.append(fullName.toLowerCase());
 		}
+		if (null != phone) {
+			sb.append(' ');
+			sb.append(phone.toLowerCase());
+		}
+		if (null != skype) {
+			sb.append(' ');
+			sb.append(skype.toLowerCase());
+		}
 		fullText = sb.toString();
 	}
 
@@ -122,6 +138,22 @@ public class User implements java.io.Serializable {
 
 	public void setFullName(final String fullName) {
 		this.fullName = fullName;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getSkype() {
+		return skype;
+	}
+
+	public void setSkype(String skype) {
+		this.skype = skype;
 	}
 
 	public String getPassword() {
@@ -184,9 +216,10 @@ public class User implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", version=" + version + ", email=" + email
-				+ ", fullName=" + fullName + ", password=" + password
-				+ ", confirmPassword=" + confirmPassword + ", systemRoles="
-				+ systemRoles + ", fullText=" + fullText + "]";
+				+ ", fullName=" + fullName + ", phone=" + phone + ", skype="
+				+ skype + ", password=" + password + ", confirmPassword="
+				+ confirmPassword + ", systemRoles=" + systemRoles
+				+ ", fullText=" + fullText + "]";
 	}
 
 }

@@ -15,6 +15,10 @@
 			<base-name>i18n.msg</base-name>
 			<var>msg</var>
 		</resource-bundle>
-		<message-bundle>i18n.entity</message-bundle>
+		<resource-bundle>
+			<base-name>i18n.property</base-name>
+			<var>property</var>
+		</resource-bundle>
+		<message-bundle>i18n.property</message-bundle>
 	</application>
 </faces-config>

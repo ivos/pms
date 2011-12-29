@@ -21,7 +21,7 @@ import org.metawidget.forge.persistence.PersistenceUtil;
 
 @Named
 @RequestScoped
-public class UserBean extends PersistenceUtil /* implements MenuItem */{
+public class UserBean extends PersistenceUtil {
 	private static final long serialVersionUID = 1L;
 
 	private User user = new User();
@@ -87,6 +87,8 @@ public class UserBean extends PersistenceUtil /* implements MenuItem */{
 			User user = new User();
 			user.setEmail("email" + i + "@bla.com");
 			user.setFullName("fullName" + i);
+			user.setPhone("543-678-" + i);
+			user.setSkype("name.surname" + i);
 			user.setPassword("qqqq");
 			user.setConfirmPassword(user.getPassword());
 			user.getSystemRoles().add(SystemRole.user);
