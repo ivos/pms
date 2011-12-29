@@ -1,12 +1,12 @@
 package it.user;
 
+import static it.Support.*;
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import net.sf.lightair.LightAir;
 import net.sf.lightair.annotation.BaseUrl;
 import net.sf.lightair.annotation.Setup;
 import net.sf.lightair.annotation.Verify;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -16,16 +16,9 @@ import org.junit.runner.RunWith;
 @BaseUrl("http://localhost:8080/pms-seam3-c")
 public class EditIT {
 
-	@Before
-	public void before() {
-		beginAt("login");
-		setTextField("form:userBeanUserEmail", "email1");
-		setTextField("form:userBeanUserPassword", "password1");
-		submit();
-	}
-
 	@Test
 	public void ok() {
+		login("email1", "password1");
 		clickLinkWithExactText("User");
 		clickLinkWithExactText("email2");
 		assertSelectedOptionValuesEqual("form:systemRoles", new String[] {});
@@ -39,4 +32,16 @@ public class EditIT {
 		assertSelectedOptionValuesEqual("form:systemRoles", new String[] {
 				"user", "systemAdmin" });
 	}
+
+	@Test
+	@Verify("EditIT.xml")
+	public void security_NotAccessibleForUser() {
+		login("email3", "password3");
+		clickLinkWithExactText("User");
+		clickLinkWithExactText("email2");
+		assertTextPresent("Name:	Full Name 2");
+		assertAnchorNotPresent("form:l_edit");
+		assertTextPresent("Edit");
+	}
+
 }

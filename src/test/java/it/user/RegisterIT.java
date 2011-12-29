@@ -59,7 +59,7 @@ public class RegisterIT {
 		setTextField("form:userBeanUserPassword", "password1");
 		setTextField("form:userBeanUserConfirmPassword", "");
 		submit();
-		assertTextPresent("Confirm password: Validation Error: Value is required.");
+		assertTextPresent("Confirm Password: Validation Error: Value is required.");
 	}
 
 	@Test

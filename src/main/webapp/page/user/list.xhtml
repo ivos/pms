@@ -41,7 +41,7 @@
 				<f:param name="p" value="#{userListBean.page - 1}" />
 			</h:link>
 
-			<h:dataTable var="entity" value="#{userListBean.list}"
+			<h:dataTable id="table" var="entity" value="#{userListBean.list}"
 				styleClass="data-table" rowClasses="row-odd, row-even">
 				<h:column>
 					<f:facet name="header">

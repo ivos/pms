@@ -5,4 +5,7 @@
 	<user_system_roles user="1" system_role="systemAdmin" />
 	<user id="2" email="email2" full_name="Full Name 2" password="password2" full_text="ft2"
 		version="1" />
+	<user id="3" email="email3" full_name="Full Name 3" password="password3" full_text="ft3"
+		version="1" />
+	<user_system_roles user="3" system_role="user" />
 </dataset>

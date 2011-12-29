@@ -1,5 +1,6 @@
 package it.user;
 
+import static it.Support.*;
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import static org.junit.Assert.*;
 import net.sf.lightair.LightAir;
@@ -18,12 +19,7 @@ public class ProfileUpdateIT {
 
 	@Test
 	public void ok() {
-		beginAt("login");
-		setTextField("form:userBeanUserEmail", "email2");
-		setTextField("form:userBeanUserPassword", "password2");
-		submit();
-		assertTextNotPresent("Login failed.");
-		assertTextPresent("Logged in as: email2");
+		login("email2", "password2");
 
 		clickLink("_f_login:_l_profile");
 		assertEquals("span",

@@ -33,7 +33,7 @@
 			<br />
 			<h:link id="l_view_all" value="View all" outcome="list" /> | 
 		    <h:link id="l_edit" value="Edit" outcome="edit"
-				includeViewParams="true" />
+				disabled="#{!securityCheck.admin}" includeViewParams="true" />
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -1,5 +1,6 @@
 package it.user;
 
+import static it.Support.*;
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import net.sf.lightair.LightAir;
 import net.sf.lightair.annotation.BaseUrl;
@@ -18,10 +19,7 @@ public class ListIT {
 
 	@Before
 	public void before() {
-		beginAt("login");
-		setTextField("form:userBeanUserEmail", "email4");
-		setTextField("form:userBeanUserPassword", "password4");
-		submit();
+		login("email4", "password4");
 	}
 
 	@Test
@@ -31,19 +29,19 @@ public class ListIT {
 		assertLinkPresentWithExactText("email2");
 		assertLinkPresentWithExactText("email10");
 		assertLinkNotPresentWithExactText("email11");
-		// assertLinkNotPresent("form:l_previous_page");
+		assertAnchorNotPresent("form:l_previous_page");
 		clickLink("form:l_next_page");
 		assertLinkPresentWithExactText("email11");
 		assertLinkPresentWithExactText("email12");
 		assertLinkPresentWithExactText("email20");
-		assertLinkNotPresentWithExactText("email1");
+		assertLinkNotPresentWithExactText("email2");
 		assertLinkNotPresentWithExactText("email10");
 		assertLinkNotPresentWithExactText("email21");
 		clickLink("form:l_next_page");
 		assertLinkPresentWithExactText("email21");
 		assertLinkPresentWithExactText("email22");
 		assertLinkNotPresentWithExactText("email20");
-		// assertLinkNotPresent("form:l_next_page");
+		assertAnchorNotPresent("form:l_next_page");
 		clickLink("form:l_previous_page");
 		assertLinkPresentWithExactText("email11");
 		assertLinkPresentWithExactText("email20");
@@ -53,7 +51,7 @@ public class ListIT {
 		assertLinkPresentWithExactText("email1");
 		assertLinkPresentWithExactText("email10");
 		assertLinkNotPresentWithExactText("email11");
-		// assertLinkNotPresent("form:l_previous_page");
+		assertAnchorNotPresent("form:l_previous_page");
 	}
 
 	@Test
@@ -72,7 +70,7 @@ public class ListIT {
 		assertLinkNotPresentWithExactText("email2");
 		assertLinkNotPresentWithExactText("email9");
 		assertLinkNotPresentWithExactText("email19");
-		// assertLinkNotPresent("form:l_previous_page");
+		assertAnchorNotPresent("form:l_previous_page");
 		clickLink("form:l_next_page");
 		assertLinkPresentWithExactText("email19");
 		assertLinkPresentWithExactText("email21");
@@ -80,14 +78,14 @@ public class ListIT {
 		assertLinkNotPresentWithExactText("email20");
 		assertLinkNotPresentWithExactText("email22");
 		assertTextFieldEquals("form:userListBeanCriteriaQuery", "1");
-		// assertLinkNotPresent("form:l_next_page");
+		assertAnchorNotPresent("form:l_next_page");
 		clickLink("form:l_previous_page");
 		assertLinkPresentWithExactText("email1");
 		assertLinkPresentWithExactText("email18");
 		assertLinkNotPresentWithExactText("email2");
 		assertLinkNotPresentWithExactText("email19");
 		assertTextFieldEquals("form:userListBeanCriteriaQuery", "1");
-		// assertLinkNotPresent("form:l_previous_page");
+		assertAnchorNotPresent("form:l_previous_page");
 	}
 
 }

@@ -1,5 +1,6 @@
 package it.user;
 
+import static it.Support.*;
 import static net.sourceforge.jwebunit.junit.JWebUnit.*;
 import net.sf.lightair.LightAir;
 import net.sf.lightair.annotation.BaseUrl;
@@ -17,13 +18,8 @@ import org.junit.runner.RunWith;
 public class PasswordUpdateIT {
 
 	@Before
-	public void login() {
-		beginAt("login");
-		setTextField("form:userBeanUserEmail", "email2");
-		setTextField("form:userBeanUserPassword", "password2");
-		submit();
-		assertTextNotPresent("Login failed.");
-		assertTextPresent("Logged in as: email2");
+	public void before() {
+		login("email2", "password2");
 	}
 
 	@Test
@@ -52,7 +48,7 @@ public class PasswordUpdateIT {
 		setTextField("f_password:currentUserBeanUserPassword", "password2_a");
 		setTextField("f_password:currentUserBeanUserConfirmPassword", "");
 		submit();
-		assertTextPresent("Confirm password: Validation Error: Value is required.");
+		assertTextPresent("Confirm Password: Validation Error: Value is required.");
 	}
 
 	@Test
