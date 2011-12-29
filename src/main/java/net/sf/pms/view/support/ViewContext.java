@@ -7,7 +7,7 @@ import javax.inject.Inject;
 public class ViewContext {
 
 	@Inject
-	private transient FacesContext facesContext;
+	private FacesContext facesContext;
 
 	public void addErrorMessage(String messageText) {
 		addErrorMessage(null, messageText);
