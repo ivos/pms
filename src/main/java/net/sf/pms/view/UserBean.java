@@ -123,6 +123,20 @@ public class UserBean extends PersistenceUtil {
 		return "view?faces-redirect=true&id=" + user.getId();
 	}
 
+	@Transactional
+	@SystemAdmin
+	public String enable() {
+		user.setStatus(UserStatus.enabled);
+		return save();
+	}
+
+	@Transactional
+	@SystemAdmin
+	public String disable() {
+		user.setStatus(UserStatus.disabled);
+		return save();
+	}
+
 	public long getId() {
 		return id;
 	}
