@@ -54,11 +54,12 @@ public class UserBean extends PersistenceUtil {
 		create(user);
 		log.infov("Register user {0}.", user.toLog());
 		if (isFirstUserInSystem) {
-			log.info("First user in system, assign role systemAdmin.");
 			user.getSystemRoles().add(SystemRole.systemAdmin);
+			log.infov("First user in system, assign role systemAdmin {0}.",
+					user.toLog());
 		} else {
-			log.info("Assign role user.");
 			user.getSystemRoles().add(SystemRole.user);
+			log.infov("Assign role user {0}.", user.toLog());
 		}
 		return "login?faces-redirect=true";
 	}
@@ -77,7 +78,7 @@ public class UserBean extends PersistenceUtil {
 			return "list?faces-redirect=true";
 		}
 		viewContext.addErrorMessage("Login failed.");
-		log.warnv("User {0} login failed.", user.toLog());
+		log.warnv("User login failed {0}.", user.toLog());
 		return null;
 	}
 
