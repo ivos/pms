@@ -68,7 +68,7 @@
 		<dependency>
 			<groupId>net.sf.lightair</groupId>
 			<artifactId>light-air</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.2-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -200,20 +200,6 @@
 				</property>
 			</activation>
 			<build>
-				<testResources>
-					<testResource>
-						<directory>src/test/resources</directory>
-					</testResource>
-					<testResource>
-						<directory>src/test/java</directory>
-						<includes>
-							<include>**</include>
-						</includes>
-						<excludes>
-							<exclude>**/*.java</exclude>
-						</excludes>
-					</testResource>
-				</testResources>
 				<plugins>
 					<plugin>
 						<groupId>org.jboss.as.plugins</groupId>
