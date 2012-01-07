@@ -8,7 +8,7 @@
 		version="1" />
 	<user_system_roles user="2" system_role="systemAdmin" />
 
-	<user id="3" email="email3" full_name="Full Name 3" password="password3" status="enabled"
+	<user id="3" email="email3" full_name="Full Name 3" password="password3" status="disabled"
 		version="1" />
 	<user_system_roles user="3" system_role="systemAdmin" />
 </dataset>

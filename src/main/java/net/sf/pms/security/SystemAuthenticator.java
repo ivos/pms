@@ -26,7 +26,8 @@ public class SystemAuthenticator extends BaseAuthenticator {
 			User user = entityManager
 					.createQuery(
 							"select user from User user where user.email=:email "
-									+ "and user.password=:password", User.class)
+									+ "and user.password=:password and user.status='enabled'",
+							User.class)
 					.setParameter("email", userBean.getUser().getEmail())
 					.setParameter("password", userBean.getUser().getPassword())
 					.getSingleResult();

@@ -58,4 +58,17 @@ public class LogInOutIT {
 		assertTextFieldEquals("form:userBeanUserPassword", "");
 	}
 
+	@Test
+	public void fail_UserDisabled() {
+		beginAt("login");
+		assertLinkPresentWithExactText("Log in...");
+		setTextField("form:userBeanUserEmail", "email3");
+		setTextField("form:userBeanUserPassword", "password3");
+		submit();
+		assertTextPresent("Login failed.");
+		assertTitleEquals("Login");
+		assertTextFieldEquals("form:userBeanUserEmail", "email3");
+		assertTextFieldEquals("form:userBeanUserPassword", "");
+	}
+
 }
