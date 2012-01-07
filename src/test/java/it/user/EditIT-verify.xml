@@ -4,7 +4,7 @@
 		password="password1" status="enabled" full_text="ft1" version="1" />
 	<user_system_roles user="1" system_role="systemAdmin" />
 	<user id="2" email="email2" full_name="Full Name 2" phone="phone2" skype="skype2"
-		password="password2" status="enabled" full_text="email2 full name 2" />
+		password="password2" status="enabled" full_text="email2 full name 2 phone2 skype2" />
 	<user_system_roles user="2" system_role="user" />
 	<user_system_roles user="2" system_role="systemAdmin" />
 	<user id="3" email="email3" full_name="Full Name 3" phone="phone3" skype="skype3"
