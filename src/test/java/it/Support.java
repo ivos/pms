@@ -24,9 +24,26 @@ public class Support {
 				null == getAnchorElement(linkId));
 	}
 
-	private static IElement getAnchorElement(String linkId) {
-		IElement element = getTestingEngine().getElementByID(linkId);
-		if (null == element || (!"a".equals(element.getName()))) {
+	public static void assertButtonDisabled(String buttonId) {
+		assertButtonPresent(buttonId);
+		IElement element = getInputElement(buttonId);
+		assertTrue("Button with id [" + buttonId + "] is not disabled",
+				"disabled".equals(element.getAttribute("disabled")));
+	}
+
+	// internal
+
+	private static IElement getInputElement(String id) {
+		return getElement(id, "input");
+	}
+
+	private static IElement getAnchorElement(String id) {
+		return getElement(id, "a");
+	}
+
+	private static IElement getElement(String id, String type) {
+		IElement element = getElementById(id);
+		if (null == element || (!type.equals(element.getName()))) {
 			return null;
 		}
 		return element;

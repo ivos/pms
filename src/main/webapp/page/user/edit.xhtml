@@ -37,9 +37,11 @@
 			<br />
 			<h:commandButton id="b_save" value="Save" action="#{userBean.save}" />
 			<h:commandButton id="b_disable" value="Disable"
-				action="#{userBean.disable}" />
+				action="#{userBean.disable}"
+				disabled="#{userBean.user.disableDisable}" />
 			<h:commandButton id="b_enable" value="Enable"
-				action="#{userBean.enable}" />
+				action="#{userBean.enable}"
+				disabled="#{userBean.user.disableEnable}" />
 			<h:button id="b_cancel" value="Cancel" outcome="view"
 				includeViewParams="true" />
 		</h:form>

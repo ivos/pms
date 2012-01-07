@@ -107,12 +107,10 @@ public class UserListBean extends PersistenceUtil implements MenuItem {
 	}
 
 	public boolean isNextAvailable() {
-		System.out.println("isNextAvailable " + this);
 		return (getPage() + 1) * pageSize + 1 <= getItemsCount();
 	}
 
 	public boolean isPreviousAvailable() {
-		System.out.println("isPreviousAvailable " + this);
 		return page > 0;
 	}
 

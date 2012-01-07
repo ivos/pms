@@ -87,6 +87,22 @@ public class User implements java.io.Serializable {
 	// business logic
 
 	/**
+	 * @return <code>true</code> iff button enable should be disabled.
+	 */
+	@UiHidden
+	public boolean getDisableEnable() {
+		return UserStatus.enabled == status;
+	}
+
+	/**
+	 * @return <code>true</code> iff button disable should be disabled.
+	 */
+	@UiHidden
+	public boolean getDisableDisable() {
+		return UserStatus.disabled == status;
+	}
+
+	/**
 	 * @return <code>true</code> iff password matches confirmPassword
 	 */
 	public boolean doPasswordsMatch() {
@@ -235,6 +251,11 @@ public class User implements java.io.Serializable {
 				+ skype + ", password=" + password + ", confirmPassword="
 				+ confirmPassword + ", status=" + status + ", systemRoles="
 				+ systemRoles + ", fullText=" + fullText + "]";
+	}
+
+	public String toLog() {
+		return "[id=" + id + ", email=" + email + ", fullName=" + fullName
+				+ ", status=" + status + ", systemRoles=" + systemRoles + "]";
 	}
 
 }

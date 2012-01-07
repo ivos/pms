@@ -52,11 +52,12 @@ public class UserBean extends PersistenceUtil {
 		boolean isFirstUserInSystem = findAll(User.class, 0, 1).isEmpty();
 		user.setStatus(UserStatus.enabled);
 		create(user);
+		log.infov("Register user {0}.", user.toLog());
 		if (isFirstUserInSystem) {
-			log.info("Creating first user in system, assigning role systemAdmin.");
+			log.info("First user in system, assign role systemAdmin.");
 			user.getSystemRoles().add(SystemRole.systemAdmin);
 		} else {
-			log.info("Assigning role user.");
+			log.info("Assign role user.");
 			user.getSystemRoles().add(SystemRole.user);
 		}
 		return "login?faces-redirect=true";
@@ -72,14 +73,17 @@ public class UserBean extends PersistenceUtil {
 
 	public String login() {
 		if (identity.login() == Identity.RESPONSE_LOGIN_SUCCESS) {
+			log.infov("Log in user {0}.", user.toLog());
 			return "list?faces-redirect=true";
 		}
 		viewContext.addErrorMessage("Login failed.");
+		log.warnv("User {0} login failed.", user.toLog());
 		return null;
 	}
 
 	public String logout() {
 		identity.logout();
+		log.infov("Log out user {0}.", user.toLog());
 		return "/index";
 	}
 
@@ -103,38 +107,45 @@ public class UserBean extends PersistenceUtil {
 		user = findById(User.class, id);
 	}
 
-	@Transactional
-	public String create() {
-		create(user);
-		return "view?faces-redirect=true&id=" + user.getId();
-	}
+	// @Transactional
+	// public String create() {
+	// create(user);
+	// return "view?faces-redirect=true&id=" + user.getId();
+	// }
 
-	@Transactional
-	public String delete() {
-		delete(user);
-		return "list?faces-redirect=true";
-	}
+	// @Transactional
+	// public String delete() {
+	// delete(user);
+	// return "list?faces-redirect=true";
+	// }
 
 	@Transactional
 	@SystemAdmin
 	public String save() {
-		user.setConfirmPassword(user.getPassword());
-		save(user);
-		return "view?faces-redirect=true&id=" + user.getId();
+		log.infov("Update user {0}.", user.toLog());
+		return doSave();
 	}
 
 	@Transactional
 	@SystemAdmin
 	public String enable() {
 		user.setStatus(UserStatus.enabled);
-		return save();
+		log.infov("Enable user {0}.", user.toLog());
+		return doSave();
 	}
 
 	@Transactional
 	@SystemAdmin
 	public String disable() {
 		user.setStatus(UserStatus.disabled);
-		return save();
+		log.infov("Disable user {0}.", user.toLog());
+		return doSave();
+	}
+
+	private String doSave() {
+		user.setConfirmPassword(user.getPassword());
+		save(user);
+		return "view?faces-redirect=true&id=" + user.getId();
 	}
 
 	public long getId() {

@@ -24,6 +24,7 @@ public class DisableEnableIT {
 		assertTextInElement("form:status", "Enabled");
 		clickLink("form:l_edit");
 		assertTextInElement("form:status", "Enabled");
+		assertButtonDisabled("form:b_enable");
 		clickButton("form:b_disable");
 		assertTitleEquals("View User");
 		assertTextInElement("form:status", "Disabled");
@@ -37,6 +38,7 @@ public class DisableEnableIT {
 		assertTextInElement("form:status", "Disabled");
 		clickLink("form:l_edit");
 		assertTextInElement("form:status", "Disabled");
+		assertButtonDisabled("form:b_disable");
 		clickButton("form:b_enable");
 		assertTitleEquals("View User");
 		assertTextInElement("form:status", "Enabled");
