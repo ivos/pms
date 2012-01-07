@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import net.sf.pms.cdi.qualifier.Current;
-import net.sf.pms.domain.User;
+import net.sf.pms.domain.user.User;
 
 import org.jboss.seam.security.Identity;
 

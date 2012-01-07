@@ -1,4 +1,4 @@
-package net.sf.pms.domain;
+package net.sf.pms.domain.user;
 
 public enum SystemRole {
 

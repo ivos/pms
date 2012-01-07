@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
-import net.sf.pms.domain.User;
+import net.sf.pms.domain.user.User;
 import net.sf.pms.view.UserBean;
 
 import org.jboss.seam.security.BaseAuthenticator;

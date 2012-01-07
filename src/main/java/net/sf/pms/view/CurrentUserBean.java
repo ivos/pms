@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import net.sf.pms.cdi.qualifier.Current;
-import net.sf.pms.domain.User;
+import net.sf.pms.domain.user.User;
 import net.sf.pms.view.support.ViewContext;
 
 import org.jboss.seam.transaction.Transactional;

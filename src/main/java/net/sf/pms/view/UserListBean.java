@@ -7,8 +7,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.sf.pms.domain.User;
-import net.sf.pms.domain.UserCriteria;
+import net.sf.pms.domain.user.User;
+import net.sf.pms.domain.user.UserCriteria;
 
 import org.jboss.logging.Logger;
 import org.jboss.seam.security.annotations.LoggedIn;

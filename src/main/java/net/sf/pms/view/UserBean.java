@@ -8,8 +8,8 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import net.sf.pms.domain.SystemRole;
-import net.sf.pms.domain.User;
+import net.sf.pms.domain.user.SystemRole;
+import net.sf.pms.domain.user.User;
 import net.sf.pms.security.annotation.SystemAdmin;
 import net.sf.pms.view.support.ViewContext;
 
