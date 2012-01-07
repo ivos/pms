@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 import net.sf.pms.domain.user.SystemRole;
 import net.sf.pms.domain.user.User;
+import net.sf.pms.domain.user.UserStatus;
 import net.sf.pms.security.annotation.SystemAdmin;
 import net.sf.pms.view.support.ViewContext;
 
@@ -49,6 +50,7 @@ public class UserBean extends PersistenceUtil {
 			return null;
 		}
 		boolean isFirstUserInSystem = findAll(User.class, 0, 1).isEmpty();
+		user.setStatus(UserStatus.enabled);
 		create(user);
 		if (isFirstUserInSystem) {
 			log.info("Creating first user in system, assigning role systemAdmin.");
@@ -145,4 +147,5 @@ public class UserBean extends PersistenceUtil {
 		return Arrays.asList(new SelectItem(SystemRole.user, "User"),
 				new SelectItem(SystemRole.systemAdmin, "System administrator"));
 	}
+
 }

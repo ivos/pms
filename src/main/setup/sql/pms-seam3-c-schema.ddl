@@ -12,7 +12,11 @@
         id bigint not null,
         email varchar(100) not null unique,
         full_name varchar(100),
+        full_text varchar(200),
         password varchar(100) not null,
+        phone varchar(30),
+        skype varchar(100),
+        status varchar(32) not null,
         version integer not null,
         primary key (id)
     );

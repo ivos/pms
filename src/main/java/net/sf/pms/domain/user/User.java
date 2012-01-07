@@ -66,6 +66,13 @@ public class User implements java.io.Serializable {
 	@UiComesAfter("password")
 	private String confirmPassword;
 
+	@NotNull
+	@UiComesAfter("confirmPassword")
+	@Enumerated(EnumType.STRING)
+	@Column(length = 32)
+	@UiHidden
+	private UserStatus status;
+
 	@ElementCollection
 	@Enumerated(EnumType.STRING)
 	@Column(name = "system_role", length = 32, nullable = false)
@@ -172,6 +179,14 @@ public class User implements java.io.Serializable {
 		this.confirmPassword = confirmPassword;
 	}
 
+	public UserStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(UserStatus status) {
+		this.status = status;
+	}
+
 	public Set<SystemRole> getSystemRoles() {
 		return systemRoles;
 	}
@@ -218,8 +233,8 @@ public class User implements java.io.Serializable {
 		return "User [id=" + id + ", version=" + version + ", email=" + email
 				+ ", fullName=" + fullName + ", phone=" + phone + ", skype="
 				+ skype + ", password=" + password + ", confirmPassword="
-				+ confirmPassword + ", systemRoles=" + systemRoles
-				+ ", fullText=" + fullText + "]";
+				+ confirmPassword + ", status=" + status + ", systemRoles="
+				+ systemRoles + ", fullText=" + fullText + "]";
 	}
 
 }

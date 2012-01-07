@@ -23,6 +23,10 @@
 			<m:metawidget value="#{userBean.user}" readOnly="true">
 				<m:stub value="#{userBean.user.password}" />
 				<m:stub value="#{userBean.user.confirmPassword}" />
+				<m:stub value="#{userBean.user.status}">
+					<h:outputText id="status"
+						value="#{label['enum_userStatus_'.concat(userBean.user.status)]}" />
+				</m:stub>
 				<m:stub value="#{userBean.user.systemRoles}">
 					<h:selectManyListbox id="systemRoles"
 						value="#{userBean.user.systemRoles}">
