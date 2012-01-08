@@ -28,7 +28,7 @@ public class EditIT {
 		selectOptionsByValues("form:systemRoles", new String[] { "user",
 				"systemAdmin" });
 		clickButton("form:b_save");
-		assertTitleEquals("View User");
+		assertTitleEquals("Edit User");
 		assertSelectedOptionValuesEqual("form:systemRoles", new String[] {
 				"user", "systemAdmin" });
 	}

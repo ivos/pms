@@ -19,7 +19,7 @@ public class ViewContext {
 	}
 
 	public void addInfoMessage(String messageText) {
-		addInfoMessage(messageText);
+		addInfoMessage(null, messageText);
 	}
 
 	public void addInfoMessage(String elementId, String messageText) {

@@ -108,18 +108,6 @@ public class UserBean extends PersistenceUtil {
 		user = findById(User.class, id);
 	}
 
-	// @Transactional
-	// public String create() {
-	// create(user);
-	// return "view?faces-redirect=true&id=" + user.getId();
-	// }
-
-	// @Transactional
-	// public String delete() {
-	// delete(user);
-	// return "list?faces-redirect=true";
-	// }
-
 	@Transactional
 	@SystemAdmin
 	public String save() {
@@ -146,7 +134,8 @@ public class UserBean extends PersistenceUtil {
 	private String doSave() {
 		user.setConfirmPassword(user.getPassword());
 		save(user);
-		return "view?faces-redirect=true&id=" + user.getId();
+		// viewContext.addInfoMessage("User updated.");
+		return "edit?faces-redirect=true&id=" + user.getId();
 	}
 
 	public long getId() {
