@@ -52,15 +52,12 @@ public class UserBean extends PersistenceUtil {
 		boolean isFirstUserInSystem = findAll(User.class, 0, 1).isEmpty();
 		user.setStatus(UserStatus.enabled);
 		create(user);
-		log.infov("Register user {0}.", user.toLog());
 		if (isFirstUserInSystem) {
 			user.getSystemRoles().add(SystemRole.systemAdmin);
-			log.infov("First user in system, assign role systemAdmin {0}.",
-					user.toLog());
 		} else {
 			user.getSystemRoles().add(SystemRole.user);
-			log.infov("Assign role user {0}.", user.toLog());
 		}
+		log.infov("Register user {0}.", user.toLog());
 		return "login?faces-redirect=true";
 	}
 
@@ -85,7 +82,7 @@ public class UserBean extends PersistenceUtil {
 	public String logout() {
 		identity.logout();
 		log.infov("Log out user {0}.", user.toLog());
-		return "/index";
+		return "/index?faces-redirect=true";
 	}
 
 	@Transactional
@@ -98,6 +95,7 @@ public class UserBean extends PersistenceUtil {
 			user.setSkype("name.surname" + i);
 			user.setPassword("qqqq");
 			user.setConfirmPassword(user.getPassword());
+			user.setStatus(UserStatus.enabled);
 			user.getSystemRoles().add(SystemRole.user);
 			create(user);
 		}
@@ -132,6 +130,8 @@ public class UserBean extends PersistenceUtil {
 	}
 
 	private String doSave() {
+		// passwords not used on the form,
+		// comply with Hibernate bean validation:
 		user.setConfirmPassword(user.getPassword());
 		save(user);
 		// viewContext.addInfoMessage("User updated.");
@@ -161,6 +161,20 @@ public class UserBean extends PersistenceUtil {
 	public List<SelectItem> getSystemRoles() {
 		return Arrays.asList(new SelectItem(SystemRole.user, "User"),
 				new SelectItem(SystemRole.systemAdmin, "System administrator"));
+	}
+
+	/**
+	 * @return <code>true</code> iff button enable should be disabled.
+	 */
+	public boolean getDisableEnable() {
+		return UserStatus.enabled == user.getStatus();
+	}
+
+	/**
+	 * @return <code>true</code> iff button disable should be disabled.
+	 */
+	public boolean getDisableDisable() {
+		return UserStatus.disabled == user.getStatus();
 	}
 
 }

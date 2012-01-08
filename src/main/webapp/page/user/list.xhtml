@@ -6,7 +6,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:m="http://metawidget.org/faces">
 <f:metadata>
-	<f:viewParam name="p" value="#{userListBean.page}">
+	<f:viewParam name="p" value="#{userListBean.pagination.page}">
 		<f:validateLongRange minimum="0" />
 	</f:viewParam>
 	<f:viewParam name="q" value="#{userListBean.criteria.query}" />
@@ -20,25 +20,26 @@
 		<h:form id="form">
 			<h:messages />
 			<m:metawidget value="#{userListBean.criteria}"></m:metawidget>
-			<h:inputHidden id="i_page" value="#{userListBean.page}" />
+			<h:inputHidden id="i_page" value="#{userListBean.pagination.page}" />
 			<h:commandButton id="b_search" value="Search"
 				action="#{userListBean.search}" />&nbsp;&nbsp;&nbsp;
 			<h:commandButton id="b_generate" value="Generate"
 				action="#{userBean.generate}" />
 
-			<h:link id="l_next_page" value="Next #{userListBean.pageSize}"
-				outcome="list" disabled="#{!userListBean.nextAvailable}"
+			<h:link id="l_next_page"
+				value="Next #{userListBean.pagination.pageSize}" outcome="list"
+				disabled="#{!userListBean.pagination.hasNextPage}"
 				includeViewParams="true" styleClass="right">
-				<f:param name="p" value="#{userListBean.page + 1}" />
+				<f:param name="p" value="#{userListBean.pagination.page + 1}" />
 			</h:link>
 			<h:outputText styleClass="right"
 				style="margin-left: 10px; margin-right: 10px;"
-				value="#{userListBean.pageFirstItem + 1}..#{userListBean.pageLastItem + 1}/#{userListBean.itemsCount}" />
+				value="#{userListBean.pagination.pageFirstItem + 1}..#{userListBean.pagination.pageLastItem + 1}/#{userListBean.pagination.itemsCount}" />
 			<h:link id="l_previous_page"
-				value="Previous #{userListBean.pageSize}" outcome="list"
-				disabled="#{!userListBean.previousAvailable}"
+				value="Previous #{userListBean.pagination.pageSize}" outcome="list"
+				disabled="#{!userListBean.pagination.hasPreviousPage}"
 				includeViewParams="true" styleClass="right">
-				<f:param name="p" value="#{userListBean.page - 1}" />
+				<f:param name="p" value="#{userListBean.pagination.page - 1}" />
 			</h:link>
 
 			<h:dataTable id="table" var="entity" value="#{userListBean.list}"

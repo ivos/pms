@@ -10,9 +10,9 @@ import javax.inject.Named;
 import net.sf.pms.domain.user.User;
 import net.sf.pms.domain.user.UserCriteria;
 
-import org.jboss.logging.Logger;
 import org.jboss.seam.security.annotations.LoggedIn;
 import org.metawidget.forge.navigation.MenuItem;
+import org.metawidget.forge.persistence.PaginationHelper;
 import org.metawidget.forge.persistence.PersistenceUtil;
 
 @Named
@@ -22,10 +22,8 @@ public class UserListBean extends PersistenceUtil implements MenuItem {
 
 	private List<User> list = null;
 	private Integer itemsCount;
-	private UserCriteria criteria = new UserCriteria();
-
-	@Inject
-	private Logger log;
+	private PaginationHelper<User> pagination;
+	private final UserCriteria criteria = new UserCriteria();
 
 	@Inject
 	private FacesContext facesContext;
@@ -49,8 +47,7 @@ public class UserListBean extends PersistenceUtil implements MenuItem {
 		return "list?faces-redirect=true&includeViewParams=true";
 	}
 
-	public List<User> executeSearchQuery(int firstResult, int maxResults) {
-		log.infov("search, {0}", criteria);
+	private List<User> executeSearchQuery(int firstResult, int maxResults) {
 		return getEntityManager()
 				.createQuery(
 						"select user from User user where user.fullText like :fullText",
@@ -60,7 +57,7 @@ public class UserListBean extends PersistenceUtil implements MenuItem {
 				.getResultList();
 	}
 
-	public int executeCountQuery() {
+	private int executeCountQuery() {
 		return getEntityManager()
 				.createQuery(
 						"select count(*) from User user where user.fullText like :fullText",
@@ -73,79 +70,39 @@ public class UserListBean extends PersistenceUtil implements MenuItem {
 		return criteria;
 	}
 
-	public void setCriteria(UserCriteria criteria) {
-		this.criteria = criteria;
-	}
-
 	@LoggedIn
 	public List<User> getList() {
 		if (null == list && !facesContext.isPostback()) {
-			list = executeSearchQuery(getPageFirstItem(), getPageSize());
+			list = pagination.createPageDataModel();
 		}
 		return list;
 	}
 
-	public void setList(List<User> list) {
-		this.list = list;
-	}
+	public PaginationHelper<User> getPagination() {
+		if (pagination == null) {
+			pagination = new PaginationHelper<User>(10) {
+				@Override
+				public int getItemsCount() {
+					if (null == itemsCount && !facesContext.isPostback()) {
+						itemsCount = executeCountQuery();
+					}
+					return itemsCount;
+				}
 
-	// pagination
-
-	private final int pageSize = 10;
-	private int page;
-
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public boolean isNextAvailable() {
-		return (getPage() + 1) * pageSize + 1 <= getItemsCount();
-	}
-
-	public boolean isPreviousAvailable() {
-		return page > 0;
-	}
-
-	public int getItemsCount() {
-		if (null == itemsCount && !facesContext.isPostback()) {
-			itemsCount = executeCountQuery();
+				@Override
+				public List<User> createPageDataModel() {
+					return executeSearchQuery(getPageFirstItem(), getPageSize());
+				}
+			};
 		}
-		return itemsCount;
-	}
-
-	public void setItemsCount(int itemsCount) {
-		this.itemsCount = itemsCount;
-	}
-
-	public int getPageFirstItem() {
-		return getPage() * pageSize;
-	}
-
-	public int getPageLastItem() {
-		int i = getPageFirstItem() + pageSize - 1;
-		int count = getItemsCount() - 1;
-		if (i > count) {
-			i = count;
-		}
-		if (i < 0) {
-			i = 0;
-		}
-		return i;
+		return pagination;
 	}
 
 	@Override
 	public String toString() {
 		return "UserListBean [list=" + (null == list ? null : list.size())
-				+ ", itemsCount=" + itemsCount + ", criteria=" + criteria
-				+ ", pageSize=" + pageSize + ", page=" + page + "]";
+				+ ", itemsCount=" + itemsCount + ", pagination=" + pagination
+				+ ", criteria=" + criteria + "]";
 	}
 
 }

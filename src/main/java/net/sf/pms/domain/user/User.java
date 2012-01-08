@@ -18,6 +18,8 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import net.sf.pms.support.FullTextColumnBuilder;
+
 import org.hibernate.annotations.ForeignKey;
 import org.metawidget.inspector.annotation.UiComesAfter;
 import org.metawidget.inspector.annotation.UiHidden;
@@ -87,22 +89,6 @@ public class User implements java.io.Serializable {
 	// business logic
 
 	/**
-	 * @return <code>true</code> iff button enable should be disabled.
-	 */
-	@UiHidden
-	public boolean getDisableEnable() {
-		return UserStatus.enabled == status;
-	}
-
-	/**
-	 * @return <code>true</code> iff button disable should be disabled.
-	 */
-	@UiHidden
-	public boolean getDisableDisable() {
-		return UserStatus.disabled == status;
-	}
-
-	/**
 	 * @return <code>true</code> iff password matches confirmPassword
 	 */
 	public boolean doPasswordsMatch() {
@@ -112,21 +98,8 @@ public class User implements java.io.Serializable {
 	@PrePersist
 	@PreUpdate
 	protected void recreateFullText() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(email.toLowerCase());
-		if (null != fullName) {
-			sb.append(' ');
-			sb.append(fullName.toLowerCase());
-		}
-		if (null != phone) {
-			sb.append(' ');
-			sb.append(phone.toLowerCase());
-		}
-		if (null != skype) {
-			sb.append(' ');
-			sb.append(skype.toLowerCase());
-		}
-		fullText = sb.toString();
+		fullText = FullTextColumnBuilder.getInstance().append(email).append(fullName)
+				.append(phone).append(skype).toString();
 	}
 
 	// getters, setters

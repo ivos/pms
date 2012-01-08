@@ -11,7 +11,6 @@ import net.sf.pms.view.support.ViewContext;
 import org.jboss.seam.transaction.Transactional;
 import org.metawidget.forge.persistence.PersistenceUtil;
 
-@Transactional
 @Named
 @RequestScoped
 public class CurrentUserBean extends PersistenceUtil {
@@ -24,6 +23,7 @@ public class CurrentUserBean extends PersistenceUtil {
 	@Inject
 	private transient ViewContext viewContext;
 
+	@Transactional
 	public void saveProfile() {
 		// passwords not used on the form,
 		// comply with Hibernate bean validation:
@@ -31,8 +31,10 @@ public class CurrentUserBean extends PersistenceUtil {
 
 		save(user);
 		viewContext.addInfoMessage("f_profile", "Profile updated.");
+		// TODO: add redirect
 	}
 
+	@Transactional
 	public void changePassword() {
 		if (!user.doPasswordsMatch()) {
 			viewContext.addErrorMessage(
@@ -42,6 +44,7 @@ public class CurrentUserBean extends PersistenceUtil {
 		}
 		save(user);
 		viewContext.addInfoMessage("f_password", "Password changed.");
+		// TODO: add redirect
 	}
 
 	public User getUser() {
