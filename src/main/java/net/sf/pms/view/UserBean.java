@@ -2,12 +2,15 @@ package net.sf.pms.view;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import net.sf.pms.cdi.qualifier.LabelResourceBundle;
+import net.sf.pms.cdi.qualifier.MessageResourceBundle;
 import net.sf.pms.domain.user.SystemRole;
 import net.sf.pms.domain.user.User;
 import net.sf.pms.domain.user.UserStatus;
@@ -37,16 +40,24 @@ public class UserBean extends PersistenceUtil {
 	@Inject
 	Identity identity;
 
+	@Inject
+	@MessageResourceBundle
+	ResourceBundle msg;
+
+	@Inject
+	@LabelResourceBundle
+	ResourceBundle label;
+
 	@Transactional
 	public String register() {
 		if (!user.doPasswordsMatch()) {
 			viewContext.addErrorMessage("form:userBeanUserConfirmPassword",
-					"Passwords must match.");
+					msg.getString("passwords.must.match"));
 			return null;
 		}
 		if (isEmailAlreadyRegistered()) {
 			viewContext.addErrorMessage("form:userBeanUserEmail",
-					"E-mail already registered with the system.");
+					msg.getString("email.already.registered"));
 			return null;
 		}
 		boolean isFirstUserInSystem = findAll(User.class, 0, 1).isEmpty();
@@ -159,8 +170,11 @@ public class UserBean extends PersistenceUtil {
 	}
 
 	public List<SelectItem> getSystemRoles() {
-		return Arrays.asList(new SelectItem(SystemRole.user, "User"),
-				new SelectItem(SystemRole.systemAdmin, "System administrator"));
+		return Arrays.asList(
+				new SelectItem(SystemRole.user, label
+						.getString("enum_SystemRole_user")),
+				new SelectItem(SystemRole.systemAdmin, label
+						.getString("enum_SystemRole_systemAdmin")));
 	}
 
 	/**
