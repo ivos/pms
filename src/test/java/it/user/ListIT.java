@@ -88,4 +88,23 @@ public class ListIT {
 		assertAnchorNotPresent("form:l_previous_page");
 	}
 
+	@Test
+	public void searchResetsPage() {
+		clickLinkWithExactText("User");
+		clickLink("form:l_next_page");
+		clickLink("form:l_next_page");
+		assertLinkPresentWithExactText("email21");
+		assertLinkPresentWithExactText("email22");
+		assertLinkNotPresentWithExactText("email20");
+		assertAnchorNotPresent("form:l_next_page");
+		setTextField("form:userListBeanCriteriaQuery", "1");
+		submit();
+		assertLinkPresentWithExactText("email1");
+		assertLinkPresentWithExactText("email18");
+		assertLinkNotPresentWithExactText("email2");
+		assertLinkNotPresentWithExactText("email19");
+		assertAnchorNotPresent("form:l_previous_page");
+		assertAnchorPresent("form:l_next_page");
+	}
+
 }

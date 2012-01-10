@@ -98,8 +98,8 @@ public class User implements java.io.Serializable {
 	@PrePersist
 	@PreUpdate
 	protected void recreateFullText() {
-		fullText = FullTextColumnBuilder.getInstance().append(email).append(fullName)
-				.append(phone).append(skype).toString();
+		fullText = FullTextColumnBuilder.getInstance().append(email)
+				.append(fullName).append(phone).append(skype).toString();
 	}
 
 	// getters, setters

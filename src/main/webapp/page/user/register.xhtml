@@ -8,9 +8,9 @@
 <f:metadata>
 </f:metadata>
 <ui:composition template="/page/page-template.xhtml">
-	<ui:param name="pageTitle" value="#{label.register_title}" />
-	<ui:define name="header">#{label.register_title}</ui:define>
-	<ui:define name="subheader">#{label.register_subheader}</ui:define>
+	<ui:param name="pageTitle" value="#{label.user_register_title}" />
+	<ui:define name="header">#{label.user_register_title}</ui:define>
+	<ui:define name="subheader">#{label.user_register_subheader}</ui:define>
 	<ui:define name="footer"></ui:define>
 	<ui:define name="main">
 		<h:form id="form">
@@ -18,9 +18,9 @@
 			<br />
 			<m:metawidget value="#{userBean.user}" />
 			<br />
-			<h:commandButton id="b_register" value="#{label.register_b_register}"
+			<h:commandButton id="b_register" value="#{label.user_register_b_register}"
 				action="#{userBean.register()}" />
-			<h:button id="b_cancel" value="#{label.register_b_cancel}"
+			<h:button id="b_cancel" value="#{label.user_register_b_cancel}"
 				outcome="/index" styleClass="right" />
 		</h:form>
 	</ui:define>

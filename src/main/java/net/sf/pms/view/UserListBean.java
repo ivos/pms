@@ -44,14 +44,13 @@ public class UserListBean extends PersistenceUtil implements MenuItem {
 	}
 
 	public String search() {
+		pagination.setPage(0);
 		return "list?faces-redirect=true&includeViewParams=true";
 	}
 
 	private List<User> executeSearchQuery(int firstResult, int maxResults) {
 		return getEntityManager()
-				.createQuery(
-						"select user from User user where user.fullText like :fullText",
-						User.class)
+				.createQuery("select user" + QUERY, User.class)
 				.setParameter("fullText", criteria.getQueryExpanded())
 				.setFirstResult(firstResult).setMaxResults(maxResults)
 				.getResultList();
@@ -59,12 +58,12 @@ public class UserListBean extends PersistenceUtil implements MenuItem {
 
 	private int executeCountQuery() {
 		return getEntityManager()
-				.createQuery(
-						"select count(*) from User user where user.fullText like :fullText",
-						Long.class)
+				.createQuery("select count(*)" + QUERY, Long.class)
 				.setParameter("fullText", criteria.getQueryExpanded())
 				.getSingleResult().intValue();
 	}
+
+	private static final String QUERY = " from User user where user.fullText like :fullText";
 
 	public UserCriteria getCriteria() {
 		return criteria;

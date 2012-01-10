@@ -12,9 +12,9 @@
 	</f:viewParam>
 </f:metadata>
 <ui:composition template="/page/page-template.xhtml">
-	<ui:param name="pageTitle" value="Edit User" />
-	<ui:define name="header">User</ui:define>
-	<ui:define name="subheader">Editing user</ui:define>
+	<ui:param name="pageTitle" value="#{label.user_edit_title}" />
+	<ui:define name="header">#{label.user_edit_header}</ui:define>
+	<ui:define name="subheader">#{label.user_edit_subheader}</ui:define>
 	<ui:define name="footer"></ui:define>
 	<ui:define name="main">
 		<h:form id="form">
@@ -35,15 +35,14 @@
 				</m:stub>
 			</m:metawidget>
 			<br />
-			<h:commandButton id="b_save" value="Save" action="#{userBean.save}" />
-			<h:commandButton id="b_disable" value="Disable"
-				action="#{userBean.disable}"
-				disabled="#{userBean.disableDisable}" />
-			<h:commandButton id="b_enable" value="Enable"
-				action="#{userBean.enable}"
-				disabled="#{userBean.disableEnable}" />
-			<h:button id="b_cancel" value="Cancel" outcome="view"
-				includeViewParams="true" styleClass="right" />
+			<h:commandButton id="b_save" value="#{label.user_edit_b_save}"
+				action="#{userBean.save}" />
+			<h:commandButton id="b_disable" value="#{label.user_edit_b_disable}"
+				action="#{userBean.disable}" disabled="#{userBean.disableDisable}" />
+			<h:commandButton id="b_enable" value="#{label.user_edit_b_enable}"
+				action="#{userBean.enable}" disabled="#{userBean.disableEnable}" />
+			<h:button id="b_cancel" value="#{label.user_edit_b_cancel}"
+				outcome="view" includeViewParams="true" styleClass="right" />
 		</h:form>
 	</ui:define>
 </ui:composition>

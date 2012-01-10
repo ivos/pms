@@ -12,23 +12,23 @@
 	<f:viewParam name="q" value="#{userListBean.criteria.query}" />
 </f:metadata>
 <ui:composition template="/page/page-template.xhtml">
-	<ui:param name="pageTitle" value="List User" />
-	<ui:define name="header">User</ui:define>
-	<ui:define name="subheader">Listing all system users</ui:define>
+	<ui:param name="pageTitle" value="#{label.user_list_title}" />
+	<ui:define name="header">#{label.user_list_header}</ui:define>
+	<ui:define name="subheader">#{label.user_list_subheader}</ui:define>
 	<ui:define name="footer"></ui:define>
 	<ui:define name="main">
 		<h:form id="form">
 			<h:messages />
 			<m:metawidget value="#{userListBean.criteria}"></m:metawidget>
 			<h:inputHidden id="i_page" value="#{userListBean.pagination.page}" />
-			<h:commandButton id="b_search" value="Search"
+			<h:commandButton id="b_search" value="#{label.user_list_b_search}"
 				action="#{userListBean.search}" />&nbsp;&nbsp;&nbsp;
-			<h:commandButton id="b_generate" value="Generate"
-				action="#{userBean.generate}" />
+			<h:commandButton id="b_generate"
+				value="#{label.user_list_b_generate}" action="#{userBean.generate}" />
 
 			<h:link id="l_next_page"
-				value="Next #{userListBean.pagination.pageSize}" outcome="list"
-				disabled="#{!userListBean.pagination.hasNextPage}"
+				value="#{label.navigation_nextPage} #{userListBean.pagination.pageSize}"
+				outcome="list" disabled="#{!userListBean.pagination.hasNextPage}"
 				includeViewParams="true" styleClass="right">
 				<f:param name="p" value="#{userListBean.pagination.page + 1}" />
 			</h:link>
@@ -36,7 +36,8 @@
 				style="margin-left: 10px; margin-right: 10px;"
 				value="#{userListBean.pagination.pageFirstItem + 1}..#{userListBean.pagination.pageLastItem + 1}/#{userListBean.pagination.itemsCount}" />
 			<h:link id="l_previous_page"
-				value="Previous #{userListBean.pagination.pageSize}" outcome="list"
+				value="#{label.navigation_previousPage} #{userListBean.pagination.pageSize}"
+				outcome="list"
 				disabled="#{!userListBean.pagination.hasPreviousPage}"
 				includeViewParams="true" styleClass="right">
 				<f:param name="p" value="#{userListBean.pagination.page - 1}" />
